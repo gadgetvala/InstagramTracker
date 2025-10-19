@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 240 10% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 15%;
+
+    /* Instagram-inspired gradient colors */
+    --primary: 291 64% 42%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 5% 96%;
+    --secondary-foreground: 240 10% 15%;
+
+    --muted: 240 5% 96%;
+    --muted-foreground: 240 4% 46%;
+
+    --accent: 291 64% 42%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 6% 90%;
+    --input: 240 6% 90%;
+    --ring: 291 64% 42%;
+
+    --radius: 1rem;
+
+    /* Custom Instagram gradient */
+    --gradient-start: 291 64% 42%;
+    --gradient-mid: 316 73% 52%;
+    --gradient-end: 33 100% 53%;
+
+    /* Chart colors - vibrant and professional */
+    --chart-1: 291 64% 42%; /* Purple - Instagram primary */
+    --chart-2: 316 73% 52%; /* Magenta - Instagram gradient */
+    --chart-3: 33 100% 53%; /* Orange - Instagram accent */
+    --chart-4: 200 98% 39%; /* Cyan - complementary */
+    --chart-5: 142 76% 36%; /* Green - success accent */
+  }
+
+  .dark {
+    --background: 240 10% 8%;
+    --foreground: 0 0% 95%;
+
+    --card: 240 10% 12%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 240 10% 12%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 291 64% 42%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 4% 16%;
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 240 4% 16%;
+    --muted-foreground: 240 5% 65%;
+
+    --accent: 291 64% 42%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 95%;
+
+    --border: 240 4% 16%;
+    --input: 240 4% 16%;
+    --ring: 291 64% 42%;
+
+    /* Chart colors - adjusted for dark mode */
+    --chart-1: 291 70% 60%; /* Brighter purple for dark mode */
+    --chart-2: 316 80% 65%; /* Brighter magenta for dark mode */
+    --chart-3: 33 100% 60%; /* Brighter orange for dark mode */
+    --chart-4: 200 95% 50%; /* Brighter cyan for dark mode */
+    --chart-5: 142 70% 45%; /* Brighter green for dark mode */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
