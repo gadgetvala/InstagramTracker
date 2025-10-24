@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Upload as UploadIcon } from 'lucide-react';
+import { Upload as UploadIcon, TestTube2 } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { AuthorCredit } from '@/components/AuthorCredit';
@@ -9,13 +9,21 @@ import { ExportInstructions } from '@/components/ExportInstructions';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { useData } from '@/contexts/DataContext';
+import { generateSampleData } from '@/utils/sampleData';
 import { parseInstagramZip } from '@/utils/zipParser';
 
 export default function Upload() {
   const [isDragging, setIsDragging] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const navigate = useNavigate();
-  const { setData } = useData();
+  const { data, setData } = useData();
+
+  // Redirect to home if data already exists
+  useEffect(() => {
+    if (data) {
+      navigate('/home', { replace: true });
+    }
+  }, [data, navigate]);
 
   const handleFile = async (file: File) => {
     if (!file.name.endsWith('.zip')) {
@@ -47,6 +55,21 @@ export default function Upload() {
     const file = e.target.files?.[0];
     if (file) handleFile(file);
   };
+
+  const handleLoadSampleData = () => {
+    setIsProcessing(true);
+    try {
+      const sampleData = generateSampleData();
+      setData(sampleData);
+      toast.success('Sample data loaded successfully!');
+      navigate('/home');
+    } catch (error) {
+      toast.error('Failed to load sample data');
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4">
@@ -100,6 +123,24 @@ export default function Upload() {
                 <span>{isProcessing ? 'Processing...' : 'Select ZIP File'}</span>
               </Button>
             </label>
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t border-border" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-background px-2 text-muted-foreground">or</span>
+              </div>
+            </div>
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full"
+              onClick={handleLoadSampleData}
+              disabled={isProcessing}
+            >
+              <TestTube2 className="mr-2 h-4 w-4" />
+              Load Sample Data
+            </Button>
           </div>
         </Card>
 
